@@ -1,0 +1,61 @@
+[PROJECT]
+Target=main.hex
+Processor_Text=PIC18F4620
+CCSVerions=5.093
+Compiler=PCH
+CCSVersion=5.093
+[Target Data]
+FileList=main.c
+[Directories]
+Include=
+[C:\Users\ivana\OneDrive\Escritorio\firmware_proyecto\Soft\main]
+Type=4
+[mru-list]
+1=main.c
+
+[fileformats]
+forcecoff=0
+
+[ProjectLog]
+Days=2
+D1=17-01-2022
+D1_L=16
+D1_L1=[75334]Project Opened.
+D1_L2=[75342]Started Editing.
+D1_L3=[75497]Stopped Editing.
+TotalEdit=83
+TotalDebug=0
+D1_E=83
+D1_D=0
+D1_L4=[75497]Project Closed.
+D1_L5=[75520]Project Opened.
+D1_L6=[75883]Project Closed.
+D1_L7=[75889]Project Opened.
+D1_L8=[77914]Started Editing.
+D1_L9=[79676]Project Opened.
+D1_L10=[79726]Started Editing.
+D1_L11=[80575]Stopped Editing.
+D1_L12=[80840]Started Editing.
+D1_L13=[81282]Stopped Editing.
+D1_L14=[81315]Started Editing.
+D1_L15=[85401]Stopped Editing.
+D1_L16=[85401]Project Closed.
+D2=18-01-2022
+D2_L=2
+D2_L1=[1157]Project Opened.
+D2_L2=[1218]Project Closed.
+
+[Opened Files]
+1=main.c
+t1=29
+Count=2
+2=main.h
+t2=1
+[main.c]
+Type=4
+
+[defines]
+buildcount=26
+[Units]
+Count=1
+1=main (main)
