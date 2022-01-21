@@ -99,7 +99,7 @@ void main()
 {
    init();
       while(true){
-      
+         //PAIN
          //Time selection stage
          unsigned int8 adc_lecture = read_data(read_adc());
          time_leds(adc_lecture);
