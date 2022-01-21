@@ -31,9 +31,14 @@ void main()
       unsigned int8 adc_lecture = adc_read_data();
       time_leds(adc_lecture);
       //Function selection stage
-      if(confirm_pressed(UVBUTTON)) output_high(UVONFLAG);
-      if(confirm_pressed(HEATERBUTTON)) output_high(HEATERONFLAG);
-      //while(!confirm_pressed(STARTBUTTON)) blinkLed();             for the future...
+      if(confirm_pressed(UVBUTTON)){ 
+         if(confirm_pressed(HEATERBUTTON)) select_function(1, 1);
+         else select_function(1, 0);
+      }
+      else{
+         if(confirm_pressed(HEATERBUTTON)) select_function(0, 1);
+         else select_function(0, 0);
+      }
    }
 }
 
@@ -56,8 +61,8 @@ unsigned int8 adc_read_data()
    return time_leds_value;
 }
 
-void time_leds(unsigned int8 time_leds_value){
-   switch(time_leds_value){
+void time_leds(unsigned int8 value){
+   switch(value){
          case 0:
             output_low(LED1M);
             output_low(LED3M);
@@ -85,10 +90,31 @@ void time_leds(unsigned int8 time_leds_value){
 }
 
 int1 confirm_pressed(unsigned int16 button){
-  if(input(button) == 1){
-      delay_ms(10);
+   if(input(button) == 1){
       if(input(button)== 0) return 1;
       else return 0;
    }
    else return 0;
 }
+
+void select_function(int1 uv, int1 heater){
+   if(uv == 1 && heater == 0){
+      output_high(UVONFLAG);
+      output_low(HEATERONFLAG);
+   }
+   else if (uv == 0 && heater == 1){
+      output_high(HEATERONFLAG);
+      output_low(UVONFLAG);
+   }
+   else if(uv == 1 && heater == 1){
+      output_high(HEATERONFLAG);
+      output_high(UVONFLAG);
+   }
+   else{
+      output_low(HEATERONFLAG);
+      output_low(UVONFLAG);
+   }
+}
+
+
+

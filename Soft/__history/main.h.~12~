@@ -1,0 +1,22 @@
+#include <18F4620.h>
+#device ADC=10
+
+#FUSES NOWDT                    //No Watch Dog Timer
+//#FUSES NOMCLR
+
+#device ICD=TRUE
+#use delay(internal=8000000)
+#use rs232(baud=9600,parity=N,bits=8,stream=PORT1,FORCE_SW)
+/*===================================================
+                      FUNCTIONS
+-----------------------------------------------------*/
+
+void init();
+unsigned int8 adc_value();
+unsigned int8 adc_read_data();
+
+/*===================================================
+                     VARIABLES
+-----------------------------------------------------*/
+
+unsigned int8 adc_lecture;

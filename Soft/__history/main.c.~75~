@@ -27,13 +27,8 @@ void main()
 {
    init();
    while(true){
-      //Time selection stage
       unsigned int8 adc_lecture = adc_read_data();
-      time_leds(adc_lecture);
-      //Function selection stage
-      if(confirm_pressed(UVBUTTON)) output_high(UVONFLAG);
-      if(confirm_pressed(HEATERBUTTON)) output_high(HEATERONFLAG);
-      //while(!confirm_pressed(STARTBUTTON)) blinkLed();             for the future...
+      time_leds(adc_lecture);      
    }
 }
 
@@ -56,8 +51,8 @@ unsigned int8 adc_read_data()
    return time_leds_value;
 }
 
-void time_leds(unsigned int8 time_leds_value){
-   switch(time_leds_value){
+void time_leds(unsigned int8 value){
+   switch(value){
          case 0:
             output_low(LED1M);
             output_low(LED3M);
@@ -85,10 +80,13 @@ void time_leds(unsigned int8 time_leds_value){
 }
 
 int1 confirm_pressed(unsigned int16 button){
-  if(input(button) == 1){
-      delay_ms(10);
-      if(input(button)== 0) return 1;
-      else return 0;
+   if(input(pin) == 1){
+      if(input(pin)==0) return 1;
    }
-   else return 0;
 }
+
+void select_function(){
+}
+
+
+

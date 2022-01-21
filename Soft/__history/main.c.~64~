@@ -1,0 +1,91 @@
+#include <main.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define ADCMAX 255
+#define LED1M PIN_B1
+#define LED3M PIN_B2
+#define LED5M PIN_B3
+#define UVBUTTON
+#define HEATERBUTTON
+#define STARTBUTTON
+
+unsigned int8 adc_value(){
+   unsigned int8 value;
+   set_adc_channel(0);
+   delay_us(20);
+   value = read_adc(ADC_START_AND_READ);
+   return value;
+}
+
+unsigned int8 adc_read_data()
+{
+   unsigned int8 value = adc_value;
+   unsigned int8 time_leds_value;
+   if (2 < value <= (ADCMAX/3)) value = 1;
+   else if ((ADCMAX/3) < value <= (ADCMAX/2)) time_leds_value = 2;
+   else if ((ADCMAX/2) < value <= (ADCMAX/1)) time_leds_value = 3;
+   else return 0;
+   return time_leds_value;
+}
+
+void time_leds(unsigned int8 value){
+   switch (value){
+         case 0:
+            output_low(LED1M);
+            output_low(LED3M);
+            output_low(LED5M);
+            break;
+            
+         case 1:
+            output_high(LED1M);
+            output_low(LED3M);
+            output_low(LED5M);
+            break;
+         
+         case 2:
+            output_high(LED1M);
+            output_high(LED3M);
+            output_low(LED5M);
+            break;
+         
+         case 3:
+            output_high(LED1M);
+            output_high(LED3M);
+            output_high(LED5M);
+            break;
+   }
+}
+
+//void select_function(){}
+
+#int_TIMER0
+void  TIMER0_isr(void){
+   
+}
+
+#int_EXT
+void  EXT_isr(void)
+{
+}
+
+void init()
+{
+   setup_oscillator (OSC_8MHZ);
+   setup_adc_ports (AN0, VSS_VDD);
+   setup_adc (ADC_CLOCK_INTERNAL|ADC_TAD_MUL_0);
+   setup_timer_0 (RTCC_INTERNAL|RTCC_DIV_32);         //1.0 s overflow
+   enable_interrupts (int_TIMER0);
+   enable_interrupts (int_EXT);
+   enable_interrupts (GLOBAL);
+}
+
+void main()
+{
+   init();
+   while(true){
+      adc_lecture = adc_value();
+      time_leds(adc_lecture);      
+   }
+}
+

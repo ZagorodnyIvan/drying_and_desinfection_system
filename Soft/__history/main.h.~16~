@@ -37,5 +37,5 @@ unsigned int8 adc_value();
 unsigned int8 adc_read_data();
 void time_leds(unsigned int8 value);
 int1 confirm_pressed(unsigned int16 pin);
-void select_function(int1 uv, int1 heater);
+
 

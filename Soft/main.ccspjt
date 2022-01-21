@@ -17,13 +17,13 @@ Type=4
 forcecoff=0
 
 [ProjectLog]
-Days=2
+Days=3
 D1=17-01-2022
 D1_L=16
 D1_L1=[75334]Project Opened.
 D1_L2=[75342]Started Editing.
 D1_L3=[75497]Stopped Editing.
-TotalEdit=83
+TotalEdit=129
 TotalDebug=0
 D1_E=83
 D1_D=0
@@ -41,21 +41,59 @@ D1_L14=[81315]Started Editing.
 D1_L15=[85401]Stopped Editing.
 D1_L16=[85401]Project Closed.
 D2=18-01-2022
-D2_L=2
+D2_L=20
 D2_L1=[1157]Project Opened.
 D2_L2=[1218]Project Closed.
+D2_L3=[52718]Project Opened.
+D2_L4=[53079]Started Editing.
+D2_L5=[54400]Stopped Editing.
+D2_L6=[55660]Started Editing.
+D2_L7=[56267]Stopped Editing.
+D2_L8=[59141]Started Editing.
+D2_L9=[59701]Stopped Editing.
+D2_L10=[59789]Started Editing.
+D2_L11=[60613]Stopped Editing.
+D2_L12=[61145]Started Editing.
+D2_L13=[61563]Stopped Editing.
+D2_L14=[62848]Started Editing.
+D2_L15=[63571]Stopped Editing.
+D2_E=46
+D2_D=0
+D2_L16=[63632]Project Closed.
+D2_L17=[78830]Project Opened.
+D2_L18=[79146]Started Editing.
+D2_L19=[79456]Stopped Editing.
+D2_L20=[80878]Project Closed.
+D3=20-01-2022
+D3_L=14
+D3_L1=[68545]Project Opened.
+D3_L2=[68686]Started Editing.
+D3_L3=[69672]Stopped Editing.
+D3_L4=[73155]Started Editing.
+D3_L5=[75072]Stopped Editing.
+D3_L6=[75686]Started Editing.
+D3_L7=[76343]Stopped Editing.
+D3_L8=[76530]Started Editing.
+D3_L9=[77368]Stopped Editing.
+D3_L10=[77532]Started Editing.
+D3_L11=[77875]Stopped Editing.
+D3_L12=[78181]Started Editing.
+D3_L13=[80020]Stopped Editing.
+D3_L14=[80348]Started Editing.
 
 [Opened Files]
 1=main.c
-t1=29
-Count=2
+t1=30
+Count=3
 2=main.h
-t2=1
+t2=10
+3=..\..\..\..\..\..\Program Files (x86)\PICC\Devices\18F4620.h
+t3=1
 [main.c]
 Type=4
 
 [defines]
-buildcount=26
+buildcount=74
 [Units]
 Count=1
 1=main (main)

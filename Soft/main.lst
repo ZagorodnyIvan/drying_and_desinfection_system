@@ -1,15 +1,15 @@
-CCS PCH C Compiler, Version 5.093, 4770               17-Jan-22 23:41
+CCS PCH C Compiler, Version 5.093, 4770               20-Jan-22 22:52
 
                Filename:   C:\Users\ivana\OneDrive\Escritorio\firmware_proyecto\Soft\main.lst
 
-               ROM used:   386 bytes (1%)
-                           Largest free fragment is 64314
-               RAM used:   33 (1%) at main() level
-                           33 (1%) worst case
+               ROM used:   806 bytes (1%)
+                           Largest free fragment is 63894
+               RAM used:   32 (1%) at main() level
+                           40 (1%) worst case
                Stack used: 1 locations (0 in main + 1 for interrupts)
                Stack size: 30
 
-0000:  GOTO   00F2
+0000:  GOTO   02D2
 *
 0008:  MOVWF  04
 000A:  MOVFF  FD8,05
@@ -73,16 +73,140 @@ CCS PCH C Compiler, Version 5.093, 4770               17-Jan-22 23:41
 .................... //// form are not restricted in any way.                               ////
 .................... ///////////////////////////////////////////////////////////////////////////
 .................... #device PIC18F4620
+*
+01B4:  ADDWF  FE8,W
+01B6:  CLRF   FF7
+01B8:  RLCF   FF7,F
+01BA:  ADDLW  CF
+01BC:  MOVWF  FF6
+01BE:  MOVLW  01
+01C0:  ADDWFC FF7,F
+01C2:  TBLRD*-
+01C4:  MOVF   FF5,W
+01C6:  MOVWF  FFA
+01C8:  TBLRD*
+01CA:  MOVF   FF5,W
+01CC:  MOVWF  FF9
+01CE:  DATA 7A,01
+01D0:  DATA 88,01
+01D2:  DATA 96,01
+01D4:  DATA A4,01
+01D6:  MOVF   22,W
+01D8:  ANDLW  07
+01DA:  MOVWF  00
+01DC:  RRCF   22,W
+01DE:  MOVWF  01
+01E0:  RRCF   01,F
+01E2:  RRCF   01,F
+01E4:  MOVLW  1F
+01E6:  ANDWF  01,F
+01E8:  MOVF   01,W
+01EA:  ADDWF  24,W
+01EC:  MOVWF  FE9
+01EE:  MOVLW  00
+01F0:  ADDWFC 25,W
+01F2:  MOVWF  FEA
+01F4:  CLRF   01
+01F6:  INCF   01,F
+01F8:  INCF   00,F
+01FA:  BRA    01FE
+01FC:  RLCF   01,F
+01FE:  DECFSZ 00,F
+0200:  BRA    01FC
+0202:  MOVF   23,F
+0204:  BZ    020C
+0206:  MOVF   01,W
+0208:  IORWF  FEF,F
+020A:  BRA    0212
+020C:  COMF   01,F
+020E:  MOVF   01,W
+0210:  ANDWF  FEF,F
+0212:  RETURN 0
+0214:  MOVF   22,W
+0216:  ANDLW  07
+0218:  MOVWF  00
+021A:  RRCF   22,W
+021C:  MOVWF  01
+021E:  RRCF   01,F
+0220:  RRCF   01,F
+0222:  MOVLW  1F
+0224:  ANDWF  01,F
+0226:  MOVF   01,W
+0228:  ADDWF  23,W
+022A:  MOVWF  FE9
+022C:  MOVLW  00
+022E:  ADDWFC 24,W
+0230:  MOVWF  FEA
+0232:  MOVFF  FEF,01
+0236:  INCF   00,F
+0238:  BRA    023C
+023A:  RRCF   01,F
+023C:  DECFSZ 00,F
+023E:  BRA    023A
+0240:  MOVLW  01
+0242:  ANDWF  01,F
+0244:  RETURN 0
 .................... 
 .................... #list
 .................... 
 .................... #device ADC=8
 .................... 
 .................... #FUSES NOWDT                    //No Watch Dog Timer
+.................... //#FUSES NOMCLR
 .................... 
 .................... #device ICD=TRUE
 .................... #use delay(internal=8000000)
+0246:  CLRF   FEA
+0248:  MOVLW  22
+024A:  MOVWF  FE9
+024C:  MOVF   FEF,W
+024E:  BZ    026A
+0250:  MOVLW  02
+0252:  MOVWF  01
+0254:  CLRF   00
+0256:  DECFSZ 00,F
+0258:  BRA    0256
+025A:  DECFSZ 01,F
+025C:  BRA    0254
+025E:  MOVLW  97
+0260:  MOVWF  00
+0262:  DECFSZ 00,F
+0264:  BRA    0262
+0266:  DECFSZ FEF,F
+0268:  BRA    0250
+026A:  GOTO   0298 (RETURN)
 .................... #use rs232(baud=9600,parity=N,bits=8,stream=PORT1,FORCE_SW)
+.................... 
+.................... /*===================================================
+....................                      DEFINITIONS
+.................... -----------------------------------------------------*/
+.................... 
+.................... #define ADCMAX 255
+.................... #define LED1M PIN_B1
+.................... #define LED3M PIN_B2
+.................... #define LED5M PIN_B3
+.................... #define UVBUTTON PIN_A2
+.................... #define UVONFLAG PIN_D0
+.................... #define UVONRELAY PIN_A6
+.................... #define HEATERBUTTON PIN_A3
+.................... #define HEATERONFLAG PIN_D1
+.................... #define HEATERONRELAY PIN_C0
+.................... #define STARTBUTTON PIN_A5
+.................... #define STARTEDFLAG PIN_D2
+.................... #define DHTDATA PIN_A1
+.................... #define DHTLED PIN_D3
+.................... #define BUZZER PIN_D4
+.................... 
+.................... /*===================================================
+....................                       FUNCTIONS
+.................... -----------------------------------------------------*/
+.................... 
+.................... void init();
+.................... unsigned int8 adc_value();
+.................... unsigned int8 adc_read_data();
+.................... void time_leds(unsigned int8 value);
+.................... int1 confirm_pressed(unsigned int16 pin);
+.................... void select_function(int1 uv, int1 heater);
 .................... 
 .................... 
 .................... #include <stdlib.h>
@@ -2471,27 +2595,10 @@ CCS PCH C Compiler, Version 5.093, 4770               17-Jan-22 23:41
 .................... #endif
 .................... 
 .................... 
-.................... #define ADCMAX 255
-.................... 
-.................... int16 adc_value;
-.................... 
-.................... #int_TIMER0
-.................... void  TIMER0_isr(void)
-.................... {
-.................... }
-.................... 
-00BA:  BCF    FF2.2
-00BC:  GOTO   006C
-.................... #int_EXT
-.................... void  EXT_isr(void)
-.................... {
-00C0:  BCF    FF2.1
-00C2:  GOTO   006C
-.................... }
-.................... 
 .................... void init()
 .................... {
 ....................    setup_oscillator (OSC_8MHZ);
+*
 00C6:  MOVLW  70
 00C8:  MOVWF  FD3
 00CA:  CLRF   F9B
@@ -2518,128 +2625,273 @@ CCS PCH C Compiler, Version 5.093, 4770               17-Jan-22 23:41
 ....................    enable_interrupts (GLOBAL);
 00EA:  MOVLW  C0
 00EC:  IORWF  FF2,F
-00EE:  GOTO   0116 (RETURN)
+00EE:  GOTO   02F6 (RETURN)
 .................... }
 .................... 
-.................... int8 time_leds()
+.................... #int_TIMER0
+.................... void  TIMER0_isr(void){
+....................    
+.................... }
+.................... 
+*
+00BA:  BCF    FF2.2
+00BC:  GOTO   006C
+.................... #int_EXT
+.................... void  EXT_isr(void)
 .................... {
-....................    if (0 < adc_value < 80) return 1;
-....................    else if (80 < adc_value < 128) return 2;
-....................    else if (128 < adc_value < ADCMAX) return 3;
+00C0:  BCF    FF2.1
+00C2:  GOTO   006C
 .................... }
 .................... 
 .................... void main()
-00F2:  CLRF   FF8
-00F4:  BCF    FD0.7
-00F6:  BSF    07.7
-00F8:  MOVLW  70
-00FA:  MOVWF  FD3
-00FC:  CLRF   F9B
-00FE:  MOVF   FD3,W
-0100:  BCF    F92.0
-0102:  BSF    F89.0
-0104:  MOVF   FC1,W
-0106:  ANDLW  C0
-0108:  IORLW  0F
-010A:  MOVWF  FC1
-010C:  MOVLW  07
-010E:  MOVWF  FB4
-0110:  CLRF   19
-0112:  CLRF   1A
+*
+02D2:  CLRF   FF8
+02D4:  BCF    FD0.7
+02D6:  BSF    07.7
+02D8:  MOVLW  70
+02DA:  MOVWF  FD3
+02DC:  CLRF   F9B
+02DE:  MOVF   FD3,W
+02E0:  BCF    F92.0
+02E2:  BSF    F89.0
+02E4:  MOVF   FC1,W
+02E6:  ANDLW  C0
+02E8:  IORLW  0F
+02EA:  MOVWF  FC1
+02EC:  MOVLW  07
+02EE:  MOVWF  FB4
+02F0:  CLRF   19
+02F2:  CLRF   1A
 .................... {
 ....................    init();
-0114:  BRA    00C6
-....................    set_adc_channel(0);
-0116:  MOVLW  00
-0118:  MOVWF  01
-011A:  MOVF   FC2,W
-011C:  ANDLW  C3
-011E:  IORWF  01,W
-0120:  MOVWF  FC2
-....................    delay_us(15);
-0122:  MOVLW  09
-0124:  MOVWF  00
-0126:  DECFSZ 00,F
-0128:  BRA    0126
-012A:  BRA    012C
-.................... 
-....................    while(TRUE)
-....................    {
-....................       adc_value = read_adc(ADC_START_AND_READ);
-012C:  BSF    FC2.1
-012E:  BTFSC  FC2.1
-0130:  BRA    012E
-0132:  CLRF   20
-0134:  MOVFF  FC4,1F
-....................       
-....................       switch (time_leds)
-0138:  MOVLW  01
-013A:  SUBWF  00,W
-013C:  BZ    014C
-013E:  MOVLW  02
-0140:  SUBWF  00,W
-0142:  BZ    015A
-0144:  MOVLW  03
-0146:  SUBWF  00,W
-0148:  BZ    0168
-014A:  BRA    0176
-....................       {
-....................          case 1:
-....................             output_high(PIN_B1);
-014C:  BCF    F93.1
-014E:  BSF    F8A.1
-....................             output_low(PIN_B2);
-0150:  BCF    F93.2
-0152:  BCF    F8A.2
-....................             output_low(PIN_B3);
-0154:  BCF    F93.3
-0156:  BCF    F8A.3
-....................          break;
-0158:  BRA    0182
-....................          
-....................          case 2:
-....................             output_high(PIN_B1);
-015A:  BCF    F93.1
-015C:  BSF    F8A.1
-....................             output_high(PIN_B2);
-015E:  BCF    F93.2
-0160:  BSF    F8A.2
-....................             output_low(PIN_B3);
-0162:  BCF    F93.3
-0164:  BCF    F8A.3
-....................          break;
-0166:  BRA    0182
-....................          
-....................          case 3:
-....................             output_high(PIN_B1);
-0168:  BCF    F93.1
-016A:  BSF    F8A.1
-....................             output_high(PIN_B2);
-016C:  BCF    F93.2
-016E:  BSF    F8A.2
-....................             output_high(PIN_B3);
-0170:  BCF    F93.3
-0172:  BSF    F8A.3
-....................          break;
-0174:  BRA    0182
-....................          
-....................          default:
-....................             output_low(PIN_B1);
-0176:  BCF    F93.1
-0178:  BCF    F8A.1
-....................             output_low(PIN_B2);
-017A:  BCF    F93.2
-017C:  BCF    F8A.2
-....................             output_low(PIN_B3);
-017E:  BCF    F93.3
-0180:  BCF    F8A.3
-....................          break;
-....................       }
-0182:  BRA    012C
+02F4:  BRA    00C6
+....................    while(true){
+....................       //Time selection stage
+....................       unsigned int8 adc_lecture = adc_read_data();
+02F6:  BRA    0118
+02F8:  MOVFF  01,1F
+....................       time_leds(adc_lecture);
+02FC:  MOVFF  1F,20
+0300:  BRA    016E
+....................       //Function selection stage
+....................       if(confirm_pressed(UVBUTTON)) output_high(UVONFLAG);
+0302:  MOVLW  7C
+0304:  MOVWF  21
+0306:  MOVLW  02
+0308:  MOVWF  20
+030A:  RCALL  026E
+030C:  MOVF   01,F
+030E:  BZ    0314
+0310:  BCF    F95.0
+0312:  BSF    F8C.0
+....................       if(confirm_pressed(HEATERBUTTON)) output_high(HEATERONFLAG);
+0314:  MOVLW  7C
+0316:  MOVWF  21
+0318:  MOVLW  03
+031A:  MOVWF  20
+031C:  RCALL  026E
+031E:  MOVF   01,F
+0320:  BZ    0326
+0322:  BCF    F95.1
+0324:  BSF    F8C.1
+0326:  BRA    02F6
+....................       //while(!confirm_pressed(STARTBUTTON)) blinkLed();             for the future...
 ....................    }
 .................... }
 .................... 
-0184:  BRA    0184
+0328:  BRA    0328
+.................... unsigned int8 adc_value(){
+....................    unsigned int8 value;
+....................    set_adc_channel(0);
+*
+00F2:  MOVLW  00
+00F4:  MOVWF  01
+00F6:  MOVF   FC2,W
+00F8:  ANDLW  C3
+00FA:  IORWF  01,W
+00FC:  MOVWF  FC2
+....................    delay_us(20);
+00FE:  MOVLW  0D
+0100:  MOVWF  00
+0102:  DECFSZ 00,F
+0104:  BRA    0102
+....................    value = read_adc(ADC_START_AND_READ);
+0106:  BSF    FC2.1
+0108:  BTFSC  FC2.1
+010A:  BRA    0108
+010C:  MOVFF  FC4,22
+....................    return value;
+0110:  MOVFF  22,01
+0114:  GOTO   011A (RETURN)
+.................... }
+.................... 
+.................... unsigned int8 adc_read_data()
+0118:  BRA    00F2
+011A:  MOVFF  01,20
+.................... {
+....................    unsigned int8 value = adc_value();
+....................    unsigned int8 time_leds_value;
+....................    if (2 < value <= (ADCMAX/3)) time_leds_value = 1;
+011E:  MOVF   20,W
+0120:  SUBLW  02
+0122:  BNC   0128
+0124:  MOVLW  00
+0126:  BRA    012A
+0128:  MOVLW  01
+012A:  SUBLW  55
+012C:  BNC   0134
+012E:  MOVLW  01
+0130:  MOVWF  21
+0132:  BRA    0166
+....................    else if ((ADCMAX/3) < value <= (ADCMAX/2)) time_leds_value = 2;
+0134:  MOVF   20,W
+0136:  SUBLW  55
+0138:  BNC   013E
+013A:  MOVLW  00
+013C:  BRA    0140
+013E:  MOVLW  01
+0140:  SUBLW  7F
+0142:  BNC   014A
+0144:  MOVLW  02
+0146:  MOVWF  21
+0148:  BRA    0166
+....................    else if ((ADCMAX/2) < value < ADCMAX) time_leds_value = 3;
+014A:  MOVF   20,W
+014C:  SUBLW  7F
+014E:  BNC   0154
+0150:  MOVLW  00
+0152:  BRA    0156
+0154:  MOVLW  01
+0156:  SUBLW  FF
+0158:  BZ    0160
+015A:  MOVLW  03
+015C:  MOVWF  21
+015E:  BRA    0166
+....................    else return 0;
+0160:  MOVLW  00
+0162:  MOVWF  01
+0164:  BRA    016A
+....................    return time_leds_value;
+0166:  MOVFF  21,01
+016A:  GOTO   02F8 (RETURN)
+.................... }
+.................... 
+.................... void time_leds(unsigned int8 time_leds_value){
+....................    switch(time_leds_value){
+016E:  MOVF   20,W
+0170:  ADDLW  FC
+0172:  BC    01B0
+0174:  ADDLW  04
+0176:  GOTO   01B4
+....................          case 0:
+....................             output_low(LED1M);
+017A:  BCF    F93.1
+017C:  BCF    F8A.1
+....................             output_low(LED3M);
+017E:  BCF    F93.2
+0180:  BCF    F8A.2
+....................             output_low(LED5M);
+0182:  BCF    F93.3
+0184:  BCF    F8A.3
+....................             break;
+0186:  BRA    01B0
+....................             
+....................          case 1:
+....................             output_high(LED1M);
+0188:  BCF    F93.1
+018A:  BSF    F8A.1
+....................             output_low(LED3M);
+018C:  BCF    F93.2
+018E:  BCF    F8A.2
+....................             output_low(LED5M);
+0190:  BCF    F93.3
+0192:  BCF    F8A.3
+....................             break;
+0194:  BRA    01B0
+....................          
+....................          case 2:
+....................             output_high(LED1M);
+0196:  BCF    F93.1
+0198:  BSF    F8A.1
+....................             output_high(LED3M);
+019A:  BCF    F93.2
+019C:  BSF    F8A.2
+....................             output_low(LED5M);
+019E:  BCF    F93.3
+01A0:  BCF    F8A.3
+....................             break;
+01A2:  BRA    01B0
+....................          
+....................          case 3:
+....................             output_high(LED1M);
+01A4:  BCF    F93.1
+01A6:  BSF    F8A.1
+....................             output_high(LED3M);
+01A8:  BCF    F93.2
+01AA:  BSF    F8A.2
+....................             output_high(LED5M);
+01AC:  BCF    F93.3
+01AE:  BSF    F8A.3
+....................             break;
+....................    }
+01B0:  GOTO   0302 (RETURN)
+.................... }
+.................... 
+.................... int1 confirm_pressed(unsigned int16 button){
+....................   if(input(button) == 1){
+*
+026E:  MOVFF  20,22
+0272:  MOVLW  01
+0274:  MOVWF  23
+0276:  MOVLW  0F
+0278:  MOVWF  25
+027A:  MOVLW  92
+027C:  MOVWF  24
+027E:  RCALL  01D6
+0280:  MOVFF  20,22
+0284:  MOVLW  0F
+0286:  MOVWF  24
+0288:  MOVLW  80
+028A:  MOVWF  23
+028C:  RCALL  0214
+028E:  BTFSS  01.0
+0290:  BRA    02CC
+....................       delay_ms(10);
+0292:  MOVLW  0A
+0294:  MOVWF  22
+0296:  BRA    0246
+....................       if(input(button)== 0) return 1;
+0298:  MOVFF  20,22
+029C:  MOVLW  01
+029E:  MOVWF  23
+02A0:  MOVLW  0F
+02A2:  MOVWF  25
+02A4:  MOVLW  92
+02A6:  MOVWF  24
+02A8:  RCALL  01D6
+02AA:  MOVFF  20,22
+02AE:  MOVLW  0F
+02B0:  MOVWF  24
+02B2:  MOVLW  80
+02B4:  MOVWF  23
+02B6:  RCALL  0214
+02B8:  BTFSC  01.0
+02BA:  BRA    02C4
+02BC:  MOVLW  01
+02BE:  MOVWF  01
+02C0:  BRA    02D0
+02C2:  BRA    02CA
+....................       else return 0;
+02C4:  MOVLW  00
+02C6:  MOVWF  01
+02C8:  BRA    02D0
+....................    }
+02CA:  BRA    02D0
+....................    else return 0;
+02CC:  MOVLW  00
+02CE:  MOVWF  01
+02D0:  RETURN 0
+.................... }
 
 Configuration Fuses:
    Word  1: C800   INTRC_IO FCMEN IESO
