@@ -1,63 +1,55 @@
 
-ROM used:   806/64704 (1%)
-            806/64704 (1%) including unused fragments
+ROM used: 794 (1%)
+          794 (1%) including unused fragments
 
-            0.3 Average locations per line
-            2.0 Average locations per statement
+          1 Average locations per line
+          17 Average locations per statement
 
-RAM used:   32/3956 (1%) at main() level
-            40/3956 (1%) worst case
+RAM used: 23 (1%) at main() level
+          31 (1%) worst case
 
-Stack used: 1 worst case (0 in main + 1 for interrupts)
-Stack size: 30
+Stack used: 3 worst case (out of 31 total available)
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   95    51  12  main.c
-   42     0   0  main.h
-  865     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Devices\18F4620.h
- 1352   359  88  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdlib.h
-   32     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stddef.h
-  435     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\string.h
-   28     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\ctype.h
-   37     0   0  ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdio.h
+  113    48 100  main.c
+   56     0   0  main.h
+  457     0   0  C:\Program Files (x86)\PICC\devices\18F4620.h
 ----- -----
- 2886   410 Total
+  626    48 Total
 
-Page ROM  %  RAM    Vol Diff  Functions:
----- --- --- ---    --- ----  ----------
-0     40   2    1             @delay_ms1
-0     44   3    0    165  2.2  init
-0      6   0    0      5  1.0  TIMER0_isr
-0      6   0    0      5  1.0  EXT_isr
-0     88   5    1    174  2.7  MAIN
-0     38   2    1     96  2.1  adc_value
-0     86   5    3    352  5.0  adc_read_data
-0     70   4    1    413  3.3  time_leds
-0     34   2    0     78  2.0  @goto14803
-0    100   6    3    158  3.1  confirm_pressed
-0     62   4    6      3  0.0  @WRITEBITA
-0     50   3    5             @READBITA
- Inline         0    391  3.9  @cinit1
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     40   3   1             @delay_ms1
+0     38   2   3   119  2.0  leds
+0     38   2   1   167  3.1  read_data
+0     62   4   1   310  3.7  time_leds
+0     44   3   0             @goto10069
+0    102   6   3   158  3.1  confirm_pressed
+0     62   4   6             @WRITEBITA
+0     46   3   5             @READBITA
+0    100   6   0   402  2.4  init
+0      6   0   0     5  1.0  TIMER2_isr
+0    110   7   1   186  2.7  MAIN
 
 Program metrics:
-    Functions               11
-    Statements              410
-    Comments                716
-    Volume (V)              2969
-    Difficulty (D)          26.8
-    Effort to implement (E) 79635
-    Time to implement (T)   1 hours, 14 minutes
-    Est Delivered Bugs (B)  1
-    Cyclomatic Complexity   14
-    Maintainability (MI)    80
+    Functions               7
+    Statements              48
+    Comments                134
+    Volume (V)              2069
+    Difficilty (D)          17.5
+    Effort to implement (E) 36164
+    Time to implement (T)   33 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   11
+    Maintainability (MI)    134
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-00006     0  4  
-00008-000B8   178  0  
-000BA-0FCBE   624  63894  
+00008-00094   142  0  
+00096-0FFFE   648  64738  
 
 
 

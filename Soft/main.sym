@@ -21,80 +21,68 @@
 013     @INTERRUPT_AREA
 014     @INTERRUPT_AREA
 015     @INTERRUPT_AREA
-016     @INTERRUPT_AREA
-017     @INTERRUPT_AREA
-018     @INTERRUPT_AREA
-019-01A strtok.save
-01B-01E _Randseed
-01F     MAIN.adc_lecture
-020     time_leds.time_leds_value
-020-021 confirm_pressed.button
-020     adc_read_data.value
-021     adc_read_data.time_leds_value
-022     @READBITA.P1
-022     @delay_ms1.P2
-022     @WRITEBITA.P3
-022     adc_value.value
-022     adc_read_data.@SCRATCH1
-022     confirm_pressed.@SCRATCH1
-023-024 @READBITA.P1
-023     @WRITEBITA.P2
-024-025 @WRITEBITA.P1
+016     adc_lecture
+017-018 confirm_pressed.button
+017     time_leds.time_leds_value
+017     MAIN.@SCRATCH1
+018     read_data.value
+018     leds.a
+019     leds.b
+019     @WRITEBITA.P1
+019     @delay_ms1.P2
+019     @READBITA.P3
+019     confirm_pressed.@SCRATCH1
+01A     leds.c
+01A     @WRITEBITA.P1
+01A-01B @READBITA.P2
+01B-01C @WRITEBITA.P1
 F83     PSP_DATA
 FB4.6   C1OUT
 FB4.7   C2OUT
-FBB     CCP_2_LOW
 FBB     CCP_2
+FBB     CCP_2_LOW
 FBC     CCP_2_HIGH
-FBE     CCP_1_LOW
 FBE     CCP_1
+FBE     CCP_1_LOW
 FBF     CCP_1_HIGH
 FE1-FE2 @WRITE_PACKED_MEMORY.P1
 FE1-FE2 @READ_PACKED_MEMORY.P2
-FE9-FEA @WRITE_PACKED_MEMORY.P1
-FE9-FEA @READ_PACKED_MEMORY.P2
-FE9-FEA @READ_PROGRAM_MEMORY.P3
-FE9-FEA @WRITE_PROGRAM_MEMORY.P4
+FE9-FEA @WRITE_PROGRAM_MEMORY.P1
+FE9-FEA @READ_PROGRAM_MEMORY.P2
+FE9-FEA @WRITE_PACKED_MEMORY.P3
+FE9-FEA @READ_PACKED_MEMORY.P4
 FF6-FF8 @WRITE_PROGRAM_MEMORY.P1
 FF6-FF8 @READ_PROGRAM_MEMORY.P2
 
 ROM Allocation:
-0000BA  TIMER0_isr
-0000C0  EXT_isr
-0000C6  init
-0000F2  adc_value
-000118  adc_read_data
-00016E  time_leds
-0001B4  @goto14803
-0001D6  @WRITEBITA
-000214  @READBITA
-000246  @delay_ms1
-00026E  confirm_pressed
-0002D2  @cinit1
-0002D2  MAIN
-0002F0  @cinit2
-0135  StrtoulGO
-0135  StrtolGO
+0222  @delay_ms1
+0126  leds
+0100  read_data
+014C  time_leds
+018A  @goto10069
+024A  confirm_pressed
+01B6  @WRITEBITA
+01F4  @READBITA
+009C  init
+0096  TIMER2_isr
+02B0  MAIN
+02B0  @cinit
+
+
+User Memory space: 
+
+User Memory space: 
 
 Project Directory:
-    C:\Users\ivana\OneDrive\Escritorio\firmware_proyecto\Soft\
+    D:\Cosas\Colegio\2022\Ivo\repo\drying_and_desinfection_system\Soft\
 
 Project Files:
-    main.c                                                  [20-Jan-22 22:52  CRC=9E33BC19]
-    main.h                                                  [20-Jan-22 22:31  CRC=CCD084C2]
-    ..\..\..\..\..\..\Program Files (x86)\PICC\Devices\18F4620.h [21-Feb-20 15:51  CRC=DD3680E5]
-    ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdlib.h [29-Mar-19 12:31  CRC=99D16202]
-    ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stddef.h [30-Jan-19 11:26  CRC=897CEC6C]
-    ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\string.h [04-Dec-19 10:56  CRC=428BEDCB]
-    ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\ctype.h [03-Jan-08 14:55  CRC=2D1F019F]
-    ..\..\..\..\..\..\Program Files (x86)\PICC\Drivers\stdio.h [31-Jul-07 14:24  CRC=4E4534F4]
-
-Source signature=77BE6980
-Program memory checksum=0000
-Hex file CRC=0DF7
+    main.c
+    main.h
+    C:\Program Files (x86)\PICC\devices\18F4620.h
 
 Units:
-    C:\Users\ivana\OneDrive\Escritorio\firmware_proyecto\Soft\main (main)
+    D:\Cosas\Colegio\2022\Ivo\repo\drying_and_desinfection_system\Soft\main (main)
 
 Compiler Settings:
     Processor:      PIC18F4620
@@ -103,17 +91,14 @@ Compiler Settings:
     Opt Level:      9
     Short,Int,Long: UNSIGNED: 1,8,16
     Float,Double:   32,32
-    ICD Provisions: Yes
-    Compile Mode:       CCS5
 
 Output Files:
-    XREF file:   main.xsym
     Errors:      main.err
     Ext Symbols: main.esym
     INHX32:      main.hex
     Symbols:     main.sym
     List:        main.lst
     Debug/COFF:  main.cof
-    Project:     main.ccspjt
+    Project:     main.PJT
     Call Tree:   main.tre
-    Statistics:  main.STA
+    Statistics:  main.sta

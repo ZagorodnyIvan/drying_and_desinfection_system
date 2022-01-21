@@ -108,5 +108,6 @@ void main()
          if(confirm_pressed(UVBUTTON)) output_high(UVONFLAG);
          if(confirm_pressed(HEATERBUTTON)) output_high(HEATERONFLAG);
          //while(!confirm_pressed(STARTBUTTON)) blinkLed();             for the future...
+         delay_ms(250);
       }
 }
